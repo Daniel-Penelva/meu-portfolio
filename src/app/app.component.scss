@@ -1,0 +1,6 @@
+// Estilo do componente
+:host { 
+  display: block;                // Faz o componente ocupar todo o espaço disponível
+  min-height: 100vh;             // Garante que o componente ocupe pelo menos a altura total da tela
+  background-color: transparent; // para manter o fundo do body
+}
