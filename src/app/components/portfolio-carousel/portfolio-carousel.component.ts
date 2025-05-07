@@ -26,7 +26,7 @@ export class PortfolioCarouselComponent {
     {
       title: 'Sistema de Anúncio de Reservas de Serviços',
       image: 'assets/images/sistema_anuncio.jpg',
-      description: 'Sistema de anúncios de serviços. Possui acesso ao painel tanto para o cliente quanto para a empresa terá autenticação de login. O acesso ao cliente vai conter páginas de anúncio, detalhes de serviço, página de contratação do serviço e comentário. O acesso a empresa vai conter página de perfil, criação, edição e exclusão de anúncios de serviço e status de contratação. Desenvolvido com Angular, Spring Boot e JWT.',
+      description: 'Sistema de anúncios de serviços. Possui acesso ao painel tanto para o cliente quanto para a empresa que terá autenticação de login. O acesso ao cliente vai conter páginas de anúncio, detalhes de serviço, página de contratação do serviço e comentário. O acesso a empresa vai conter página de perfil, criação, edição e exclusão de anúncios de serviço e status de contratação. Desenvolvido com Angular, Spring Boot e JWT.',
       link: 'https://sistemadeanuncio.netlify.app/',
       githubFrontend: 'https://github.com/Daniel-Penelva/sistema-anuncio-frontend',
       githubBackend: 'https://github.com/Daniel-Penelva/sistema-anuncio-backend',
