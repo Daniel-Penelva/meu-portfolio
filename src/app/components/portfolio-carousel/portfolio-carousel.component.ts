@@ -20,7 +20,7 @@ export class PortfolioCarouselComponent {
       image: 'assets/images/portal_exames.png',
       description: 'Sistema completo de avaliação online com login, cadastro de exames, questões dinâmicas e resultado final. Para acesso de administrador fica designado a criação de exames. Para acesso a usuários fica designado a aplicação do exame. Desenvolvido com Angular, Spring Boot e JWT.',
       link: 'https://dancing-nougat-1402b3.netlify.app/',
-      githubFrontend: 'https://github.com/Daniel-Penelva/portal-exame-frontend',
+      githubFrontend: 'https://github.com/Daniel-Penelva/loja-virtual',
       githubBackend: 'https://github.com/Daniel-Penelva/portal-exame-backend',
     },
     {
@@ -38,6 +38,14 @@ export class PortfolioCarouselComponent {
       link: 'https://glittery-taiyaki-6135e1.netlify.app/',
       githubFrontend: 'https://github.com/Daniel-Penelva/stackoverflow-frontend',
       githubBackend: 'https://github.com/Daniel-Penelva/stackoverflow-backend',
+    },
+    {
+      title: 'Loja Virtual TechMania',
+      image: 'assets/images/tech_mania.png',
+      description: 'Sistema de e-commerce desenvolvido com foco em experiência do usuário, contendo listagem paginada de produtos, busca dinâmica em tempo real, animações modernas, validação de estoque e carrinho de compras com controle de quantidade. A aplicação utiliza arquitetura baseada em serviços, comunicação reativa entre componentes e navegação dinâmica por rotas. Desenvolvido com Angular, TypeScript e CSS moderno.',
+      link: 'https://lojatechmania.netlify.app/',
+      githubFrontend: 'https://github.com/Daniel-Penelva/loja-virtual',
+      githubBackend: 'https://github.com/Daniel-Penelva/loja-virtual',
     }
   ];
 
