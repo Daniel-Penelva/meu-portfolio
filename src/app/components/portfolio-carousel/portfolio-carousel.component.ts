@@ -20,7 +20,7 @@ export class PortfolioCarouselComponent {
       image: 'assets/images/portal_exames.png',
       description: 'Sistema completo de avaliação online com login, cadastro de exames, questões dinâmicas e resultado final. Para acesso de administrador fica designado a criação de exames. Para acesso a usuários fica designado a aplicação do exame. Desenvolvido com Angular, Spring Boot e JWT.',
       link: 'https://dancing-nougat-1402b3.netlify.app/',
-      githubFrontend: 'https://github.com/Daniel-Penelva/loja-virtual',
+      githubFrontend: 'https://github.com/Daniel-Penelva/portal-exame-frontend',
       githubBackend: 'https://github.com/Daniel-Penelva/portal-exame-backend',
     },
     {
