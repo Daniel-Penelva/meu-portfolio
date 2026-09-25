@@ -56,7 +56,7 @@ $portfolio-dark-theme: mat.define-dark-theme(
     --stamp: #b15532;
 
     // Recolore apenas os componentes do Material dentro desta seção
-    @include mat.all-component-colors($portfolio-light-theme);
+    @include mat.button-color($portfolio-light-theme);
   }
 
   // Paleta do modo escuro
@@ -70,7 +70,7 @@ $portfolio-dark-theme: mat.define-dark-theme(
     --accent-contrast: #0f1712;
     --stamp: #e0794f;
 
-    @include mat.all-component-colors($portfolio-dark-theme);
+    @include mat.button-color($portfolio-dark-theme);
   }
 
   background: var(--bg);
