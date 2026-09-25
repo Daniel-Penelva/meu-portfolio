@@ -3,11 +3,6 @@
 // não é preciso configurar nenhum caminho extra no angular.json.
 @use "@angular/material" as mat;
 
-// Fontes usadas no conceito Workshop Dossier.
-// Preferível mover este @import para o <head> do index.html (carrega mais cedo),
-// mas funciona normalmente aqui também.
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap");
-
 // ---------------------------------------------------------------------------
 // Tema do Angular Material, aplicado só dentro desta seção do portfólio.
 // mat.$teal-palette é a paleta de estoque mais próxima do verde-floresta usado
