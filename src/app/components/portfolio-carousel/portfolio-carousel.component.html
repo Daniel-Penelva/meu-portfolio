@@ -1,35 +1,147 @@
-<mat-card class="carousel-card">
-    <h2 class="portfolio-title">Projetos em Destaque</h2>
-    <img mat-card-image class="project-image" [src]="portfolioItems[selectedIndex].image" alt="Imagem do Projeto">
-    <mat-card-header>
-        <mat-card-title class="project-title">{{ portfolioItems[selectedIndex].title }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <p class="project-description">{{ portfolioItems[selectedIndex].description }}</p>  
-    </mat-card-content>
-    <mat-card-actions>
-        <a mat-button color="primary" class="project-link" [href]="portfolioItems[selectedIndex].link" target="_blank">Ver Projeto</a>
-        <a mat-button color="primary" class="project-link" [href]="portfolioItems[selectedIndex].githubFrontend" target="_blank">GitHub (Frontend)</a>
-        <a mat-button color="primary" class="project-link" [href]="portfolioItems[selectedIndex].githubBackend" target="_blank">GitHub (Backend)</a>
-    </mat-card-actions>
-    <div class="carousel-buttons">
-        <button mat-icon-button (click)="previous()"><mat-icon>chevron_left</mat-icon></button>
-        <button mat-icon-button (click)="next()"><mat-icon>chevron_right</mat-icon></button>
+<section class="portfolio-section" [attr.data-theme]="themeMode">
+  <div class="portfolio-header">
+    <div>
+      <p class="eyebrow">portfólio</p>
+      <h2 class="portfolio-heading">Projetos em Destaque</h2>
     </div>
-</mat-card>
 
-<mat-card class="contact-card">
+    <!-- Botão de tema usando o próprio mat-icon-button do Material -->
+    <button
+      mat-icon-button
+      color="primary"
+      type="button"
+      (click)="toggleTheme()"
+      [attr.aria-label]="themeMode === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'"
+    >
+      <mat-icon>{{
+        themeMode === "dark" ? "light_mode" : "dark_mode"
+      }}</mat-icon>
+    </button>
+  </div>
+
+  <div class="dossier">
+    <!-- Abas de navegação entre os projetos (elemento próprio, não é componente do Material) -->
+    <div class="dossier-tabs" role="tablist">
+      <button
+        *ngFor="let item of portfolioItems; let i = index"
+        type="button"
+        class="dossier-tab"
+        [class.active]="i === selectedIndex"
+        role="tab"
+        [attr.aria-selected]="i === selectedIndex"
+        (click)="selectProject(i)"
+      >
+        {{ shortTitle(item.title) }}
+      </button>
+    </div>
+
+    <!-- Card do projeto selecionado -->
+    <article class="dossier-card">
+      <span class="stamp" *ngIf="portfolioItems[selectedIndex].stack">
+        {{ portfolioItems[selectedIndex].stack }}
+      </span>
+
+      <h3 class="dossier-title">{{ portfolioItems[selectedIndex].title }}</h3>
+
+      <p class="dossier-desc">
+        {{ portfolioItems[selectedIndex].description }}
+      </p>
+
+      <!-- Ações agora são botões reais do Material, coloridos pelo tema da seção -->
+      <div class="dossier-actions">
+        <a
+          mat-flat-button
+          color="primary"
+          [href]="portfolioItems[selectedIndex].link"
+          target="_blank"
+          rel="noopener"
+        >
+          Ver projeto
+        </a>
+        <a
+          mat-stroked-button
+          color="primary"
+          *ngIf="portfolioItems[selectedIndex].githubFrontend"
+          [href]="portfolioItems[selectedIndex].githubFrontend"
+          target="_blank"
+          rel="noopener"
+        >
+          Frontend
+        </a>
+        <a
+          mat-stroked-button
+          color="primary"
+          *ngIf="portfolioItems[selectedIndex].githubBackend"
+          [href]="portfolioItems[selectedIndex].githubBackend"
+          target="_blank"
+          rel="noopener"
+        >
+          Backend
+        </a>
+      </div>
+    </article>
+
+    <!-- Contador e navegação anterior / próximo, com mat-icon-button -->
+    <div class="dossier-footrow">
+      <span class="counter">
+        projeto <b>{{ selectedIndex + 1 }}</b
+        >/{{ portfolioItems.length }}
+      </span>
+
+      <div class="dossier-nav">
+        <button
+          mat-icon-button
+          color="primary"
+          type="button"
+          (click)="previous()"
+          aria-label="Projeto anterior"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          type="button"
+          (click)="next()"
+          aria-label="Próximo projeto"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card com contatos -->
+  <mat-card class="contact-card">
     <h2 class="contact-title">Mais sobre mim</h2>
     <p>Confira meus projetos e currículo completo:</p>
     <div class="contact-links">
-      <a href="https://github.com/Daniel-Penelva" target="_blank">GitHub</a>
-      <a href="https://drive.google.com/file/d/1LHlqcz29CNeX9yweWbt3Sb2ugr7HROIn/view?usp=sharing" target="_blank">Currículo</a>
-      <a href="https://www.linkedin.com/in/daniel-penelva-andrade/" target="_blank">Linkedin</a>
+      <a href="https://github.com/Daniel-Penelva" target="_blank" rel="noopener"
+        >GitHub</a
+      >
+      <a
+        href="https://drive.google.com/file/d/1UKKCXY9-oKjWBLXBv3SU4aC2KD1wYPJj/view?usp=drive_link"
+        target="_blank"
+        rel="noopener"
+        >Currículo</a
+      >
+      <a
+        href="https://www.linkedin.com/in/daniel-penelva-andrade/"
+        target="_blank"
+        rel="noopener"
+        >Linkedin</a
+      >
     </div>
-</mat-card>
+  </mat-card>
 
-
-<footer class="app-footer">
-    | Portfólio |
-    - © 2025 Copyright: Daniel Penelva de Andrade
-</footer>
+  <!-- Rodapé sempre no final -->
+  <footer class="footer">
+    <span>Portfólio</span>
+    <span class="separador">|</span>
+    <span>© 2026 Copyright: Daniel Penelva de Andrade</span>
+    <span class="separador">|</span>
+    <span>Todos os direitos reservados</span>
+    <span class="separador">|</span>
+    <span>v1.0.0</span>
+  </footer>
+</section>

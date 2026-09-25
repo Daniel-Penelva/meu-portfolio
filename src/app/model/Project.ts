@@ -5,4 +5,5 @@ export interface Project {
   githubFrontend?: string;
   githubBackend?: string;
   image?: string;
+  stack?: string;
 }

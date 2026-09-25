@@ -1,150 +1,336 @@
-// Aplicando estilo ao componente raiz (o próprio PortfolioCarouselComponent)
+// Habilita a API de temas do Angular Material neste arquivo.
+// O Angular CLI já sabe resolver "@angular/material" a partir do node_modules,
+// não é preciso configurar nenhum caminho extra no angular.json.
+@use "@angular/material" as mat;
+
+// Fontes usadas no conceito Workshop Dossier.
+// Preferível mover este @import para o <head> do index.html (carrega mais cedo),
+// mas funciona normalmente aqui também.
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap");
+
+// ---------------------------------------------------------------------------
+// Tema do Angular Material, aplicado só dentro desta seção do portfólio.
+// mat.$teal-palette é a paleta de estoque mais próxima do verde-floresta usado
+// no conceito; o tom 700 (mais escuro) vira a cor "primary".
+// ---------------------------------------------------------------------------
+$portfolio-primary: mat.define-palette(mat.$teal-palette, 700, 300, 900);
+
+$portfolio-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $portfolio-primary,
+      accent: $portfolio-primary,
+    ),
+  )
+);
+
+$portfolio-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $portfolio-primary,
+      accent: $portfolio-primary,
+    ),
+  )
+);
+
 :host {
-    display: block;
-    background-color: #121212; // Fundo escuro do carrossel
-    padding: 2rem;               // Espaçamento interno
-    color: #ffffff;            // Cor padrão do texto
+  display: block;
 }
 
-// Estiliza o contêiner principal do carrossel
-.carousel-container {
-    display: flex;                     // Layout horizontal para os cards
-    overflow-x: auto;                  // Habilita rolagem horizontal
-    scroll-snap-type: x mandatory;     // Faz os cards "encaixarem" ao parar de rolar
-    gap: 2rem;                         // Espaçamento entre os cards
-    padding-bottom: 1rem;              // Espaço inferior para respirar
+.portfolio-section {
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-display: "Fraunces", serif;
+  --font-mono: "JetBrains Mono", monospace;
 
-    // Estilo da barra de rolagem horizontal (só visível quando necessário)
-    &::-webkit-scrollbar {
-      height: 8px;
-    }
+  padding: 2.5rem 1.5rem 3rem;
+  border-radius: 18px;
+  font-family: var(--font-body);
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
 
-    &::-webkit-scrollbar-thumb {
-      background: #4fc3f7;            // Cor do "thumb" (barra que você arrasta)
-      border-radius: 10px;
-    }
+  // Paleta do modo claro (variáveis próprias do dossiê + cores do Material)
+  &[data-theme="light"] {
+    --bg: #eaf0ec;
+    --surface: #fbfcfa;
+    --text: #1f2e27;
+    --muted: #56685d;
+    --line: #c7d4c9;
+    --accent: #1f6f54;
+    --accent-contrast: #ffffff;
+    --stamp: #b15532;
 
-    &::-webkit-scrollbar-track {
-      background: #1e1e1e;            // Cor do trilho da barra
-    }
+    // Recolore apenas os componentes do Material dentro desta seção
+    @include mat.all-component-colors($portfolio-light-theme);
+  }
+
+  // Paleta do modo escuro
+  &[data-theme="dark"] {
+    --bg: #0f1712;
+    --surface: #172019;
+    --text: #eaf3ec;
+    --muted: #93a69b;
+    --line: #2a382f;
+    --accent: #4fd9a6;
+    --accent-contrast: #0f1712;
+    --stamp: #e0794f;
+
+    @include mat.all-component-colors($portfolio-dark-theme);
+  }
+
+  background: var(--bg);
+  color: var(--text);
 }
 
-// Estilo de cada card (projeto) do carrossel
-.carousel-card {
-    scroll-snap-align: center;        // Faz o card alinhar ao centro ao rolar
-    flex: 0 0 80%;                    // Cada card ocupa 80% da largura visível
-    background-color: #1e1e1e;      // Cor de fundo dos cards
-    border-radius: 16px;              // Bordas arredondadas
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); // Sombra para profundidade
-    padding: 2rem;                    // Espaçamento interno
-    transition: transform 0.3s ease;  // Animação suave ao passar o mouse
-    color: #ffffff;
-    display: flex;                    // Usar flexbox para centralizar conteúdo
-    flex-direction: column;           // Alinhar conteúdo na coluna
-    align-items: center;              // Centralizar horizontalmente
-    text-align: center;               // Centralizar texto
+// Cabeçalho da seção
+.portfolio-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 680px;
+  margin: 0 auto 1.75rem;
+  flex-wrap: wrap;
 
-    // Efeito de zoom leve ao passar o mouse no card
-    &:hover {
-      transform: scale(1.02);          // Aumenta o tamanho do card ao passar o mouse
-    }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin: 0 0 0.3rem;
+  }
 
-    .portfolio-title {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: #00bcd4;
-      font-weight: 600;
-    }
-
-    .project-image {
-        width: 100%;                      // A imagem ocupa 100% da largura do card
-        max-width: 400px;                // Limitar a largura máxima da imagem
-        height: auto;                    // Altura automática para manter proporção
-        border-radius: 16px;             // Bordas arredondadas na imagem
-        margin-bottom: 1rem;             // Espaço entre a imagem e o título
-        display: block;                  // Para que o margin funcione
-        margin-left: auto;               // Centralizar horizontalmente
-        margin-right: auto;              // Centralizar horizontalmente
-    }
-
-    // Estilo do título do projeto
-    .project-title {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #4fc3f7; // Azul claro para destaque
-    }
-
-    // Estilo da descrição do projeto
-    .project-description {
-      font-size: 1rem;
-      color: #b0bec5; // Cinza claro para contraste
-      margin-top: 1rem;
-      line-height: 1.5; // Altura da linha para melhor leitura
-      text-align: justify; // Justifica o texto para um visual mais limpo
-    }
-
-    // Estilo do link do projeto
-    .project-link {
-      display: inline-block;     // Link ocupa espaço só quando necessário
-      margin-top: 1rem;        // Espaço entre a descrição e o link
-      color: #4fc3f7;         // Azul claro (mesmo do título)
-      font-weight: 500;         // Peso da fonte para destaque
-      text-decoration: none;
-      padding: 1.5rem;
-      transition: color 0.3s; // Animação suave na cor do link
-
-      // Efeito visual ao passar o mouse no link
-      &:hover {
-        text-decoration: underline; // Sublinha o texto ao passar o mouse
-        cursor: pointer;           // Muda o cursor para indicar que é clicável
-        color: #ffffff;           // Muda a cor para branco ao passar o mouse
-      }
-    }
-}
-
-.app-footer {
-    background-color: #1e1e2f; // fundo escuro elegante
-    color: #e0e0e0; // texto claro para contraste
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    border-top: 1px solid #333;
-    margin-top: 2rem;
-}
-
-// Customização card do dados pessoais
-.contact-card {
-  scroll-snap-align: center;        // Faz o card alinhar ao centro ao rolar
-  transition: transform 0.3s ease;  // Animação suave ao passar o mouse
-  background-color: #1e1e2f;
-  color: #ffffff;
-  padding: 1.5rem;
-  margin: 2rem auto;                // Margem automática para centralizar o card
-  width: 80%;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-
-  // Efeito de zoom leve ao passar o mouse no card
-  &:hover {
-    transform: scale(1.02);        // Aumenta o tamanho do card ao passar o mouse
+  .portfolio-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.7rem;
+    margin: 0;
+    color: var(--text);
   }
 }
 
+// O botão de alternância de tema agora é um <button mat-icon-button>,
+// então a cor e o efeito de toque (ripple) já vêm do tema do Material
+// configurado acima — não precisa de nenhuma regra extra aqui.
+
+// Bloco do carrossel (dossiê)
+.dossier {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.dossier-tabs {
+  display: flex;
+  gap: 0.3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.dossier-tab {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.55rem 0.9rem 0.5rem;
+  border: 1px solid var(--line);
+  border-bottom: none;
+  background: var(--bg);
+  color: var(--muted);
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+
+  &:hover {
+    color: var(--accent);
+  }
+
+  &.active {
+    background: var(--surface);
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+.dossier-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0 10px 10px 10px;
+  padding: 2rem 2.1rem;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.08);
+}
+
+.stamp {
+  position: absolute;
+  top: 1.6rem;
+  right: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  color: var(--stamp);
+  border: 1.5px solid var(--stamp);
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  transform: rotate(4deg);
+}
+
+.dossier-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  max-width: 85%;
+  margin: 0 0 1.1rem;
+  line-height: 1.32;
+  color: var(--text);
+}
+
+.dossier-desc {
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 0 1.6rem;
+  text-align: justify; // texto justificado, como pedido
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.dossier-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+
+  // "Ver projeto", "Frontend" e "Backend" agora são <a mat-flat-button>
+  // e <a mat-stroked-button>: cor, hover e foco já vêm prontos do tema
+  // do Material configurado no topo deste arquivo.
+}
+
+.dossier-footrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.9rem;
+
+  .counter {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+
+    b {
+      color: var(--accent);
+      font-weight: 600;
+    }
+  }
+}
+
+.dossier-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+
+  // Deixa o mat-icon-button um pouco mais compacto que o tamanho padrão
+  // (40px), usando a variável de tamanho que o próprio Material expõe.
+  // Cor, hover e foco continuam vindos do tema aplicado acima.
+  .mat-mdc-icon-button {
+    --mdc-icon-button-state-layer-size: 36px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+  }
+}
+
+// Card de contato
+.contact-card {
+  max-width: 680px;
+  margin: 2.5rem auto 0;
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: none !important;
+}
+
 .contact-title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: #00bcd4;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+  color: var(--accent);
 }
 
-.contact-links a {
-  margin: 0 1rem;
-  color: #00bcd4;
-  font-weight: 500;         // Peso da fonte para destaque
-  text-decoration: none;
-  transition: color 0.3s;
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 0.8rem;
+
+  a {
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--line);
+    padding-bottom: 2px;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+  }
 }
 
-.contact-links a:hover {
-  color: #ffffff;
+// Rodapé
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .35rem;
+  max-width: 680px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  color: var(--muted);
+  text-align: center;
+
+  .separador {
+    color: var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  .portfolio-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dossier-card {
+    padding: 1.6rem 1.3rem;
+  }
+
+  .stamp {
+    position: static;
+    display: inline-block;
+    margin-bottom: 1rem;
+    transform: none;
+  }
+
+  .dossier-title {
+    max-width: 100%;
+  }
+
+  .footer {
+    font-size: 0.68rem;
+  }
 }
