@@ -26,6 +26,20 @@ export class PortfolioCarouselComponent {
       githubBackend: 'https://github.com/Daniel-Penelva/portal-exame-backend',
     },
     {
+      title: 'Sistema de Gestao de Clinica Medica',
+      stack: 'ANGULAR • SPRING BOOT • JWT • MYSQL',
+      description: 'Sistema fullstack completo para gestao de clinica medica. ' +
+        'Possui controle de acesso por perfil (Admin, Medico, Recepcionista), ' +
+        'cadastro de pacientes com CEP automatico via ViaCEP, agendamento e ' +
+        'ciclo de vida completo de consultas, prontuarios medicos, dashboard ' +
+        'gerencial com agenda do dia e relatorios com exportacao em PDF. ' +
+        'Desenvolvido com Angular 17 Standalone Components, Spring Boot 3, ' +
+        'MySQL 8 e autenticacao JWT.',
+      link: 'https://clinica-medica-daniel.netlify.app/',
+      githubFrontend: 'https://github.com/Daniel-Penelva/clinica-medica-frontend',
+      githubBackend: 'https://github.com/Daniel-Penelva/clinica-medica-backend',
+},
+    {
       title: 'Sistema de Anúncio de Reservas de Serviços',
       stack: 'ANGULAR • SPRING • JWT',
       description: 'Sistema de anúncios de serviços. Possui acesso ao painel tanto para o cliente quanto para a empresa que terá autenticação de login. O acesso ao cliente vai conter páginas de anúncio, detalhes de serviço, página de contratação do serviço e comentário. O acesso a empresa vai conter página de perfil, criação, edição e exclusão de anúncios de serviço e status de contratação. Desenvolvido com Angular, Spring Boot e JWT.',
